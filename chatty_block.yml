@@ -1,0 +1,6 @@
+- name: Print a large debug message
+  debug:
+    msg: "{{ 'X' * message_size }} - Message {{ message_number }} of {{ num_messages }}"
+- name: Sleep between messages
+  pause:
+    seconds: "{{ sleep_interval | int }}"
