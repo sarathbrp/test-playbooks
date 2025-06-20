@@ -10,6 +10,4 @@
       include_tasks: chatty_block.yml
       vars:
         message_number: "{{ item + 1 }}"
-        message_size: "{{ message_size }}"
-        sleep_interval: "{{ sleep_interval }}"
       loop: "{{ range(0, num_messages | int) | list }}"
