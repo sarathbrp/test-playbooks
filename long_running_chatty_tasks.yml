@@ -2,18 +2,16 @@
 - hosts: all
   gather_facts: false
   vars:
-    num_messages: 1000         # Number of debug messages/events to generate
-    sleep_interval: 2          # Seconds to sleep between messages
-    message_size: 1024         # Size of the debug message (optional, for stress)
+    num_messages: 1000
+    sleep_interval: 2
+    message_size: 1024
   tasks:
-    - name: Generate chatty debug messages with sleep
-      block:
-        - name: Print a large debug message
-          debug:
-            msg: "{{ 'X' * message_size }} - Message {{ item + 1 }} of {{ num_messages }}"
-        - name: Sleep between messages
-          pause:
-            seconds: "{{ sleep_interval | int }}"
+    - name: Print a large debug message
+      debug:
+        msg: "{{ 'X' * message_size }} - Message {{ item + 1 }} of {{ num_messages }}"
       loop: "{{ range(0, num_messages | int) | list }}"
-      loop_control:
-        label: "{{ item + 1 }}"
+
+    - name: Sleep between messages
+      pause:
+        seconds: "{{ sleep_interval | int }}"
+      loop: "{{ range(0, num_messages | int) | list }}"
