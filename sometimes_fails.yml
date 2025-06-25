@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: Randomly fail
+      shell: |
+        if [ $((RANDOM % 2)) -eq 0 ]; then
+          echo "Failing this job"
+          exit 1
+        else
+          echo "This job will succeed"
+        fi
+      register: result
+      ignore_errors: yes
+
+    - name: Fail if previous task failed
+      fail:
+        msg: "Intentional failure for testing"
+      when: result.rc != 0
+      ignore_errors: yes

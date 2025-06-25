@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: false
+  vars:
+    sleep_interval: 2
+    message_size: 512
+  tasks:
+    - name: Set a fact
+      set_fact:
+        my_fact: "{{ 42 * 2 }}"
+    - name: Print a debug message
+      debug:
+        msg: "Complex job: fact is {{ my_fact }}, message size is {{ message_size }}"
+    - name: Run a shell command
+      shell: "echo 'Complex job running...'; sleep 1"
+    - name: Sleep for a bit
+      pause:
+        seconds: "{{ sleep_interval | int }}"
+    - name: Print another debug message
+      debug:
+        msg: "{{ 'Y' * (message_size | int) }}"
