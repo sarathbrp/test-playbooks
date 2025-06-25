@@ -11,10 +11,8 @@
           echo "This job will succeed"
         fi
       register: result
-      ignore_errors: yes
 
     - name: Fail if previous task failed
       fail:
         msg: "Intentional failure for testing"
       when: result.rc != 0
-      ignore_errors: yes
